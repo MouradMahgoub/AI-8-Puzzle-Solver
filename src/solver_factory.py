@@ -3,16 +3,16 @@ from heuristics import HeuristicStrategy, EuclideanHeuristic, ManhattanHeuristic
 
 class SolverFactory:
     @staticmethod
-    def create_solver(solver_strategy, heuristic_strategy=None):
+    def create_solver(puzzle, solver_strategy, heuristic_strategy=None):
         if solver_strategy == 'bfs':
-            return BFSSolver()
+            return BFSSolver(puzzle)
         elif solver_strategy == 'dfs':
-            return DFSSolver()
+            return DFSSolver(puzzle)
         elif solver_strategy == 'astar':
             if heuristic_strategy == 'manhattan':
-                return AStarSolver(ManhattanHeuristic())
+                return AStarSolver(puzzle, ManhattanHeuristic())
             elif heuristic_strategy == 'euclidean':
-                return AStarSolver(EuclideanHeuristic())
+                return AStarSolver(puzzle, EuclideanHeuristic())
             else:
                 raise ValueError('Invalid heuristic strategy')
         else:
