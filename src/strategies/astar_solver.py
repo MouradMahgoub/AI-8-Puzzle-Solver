@@ -1,4 +1,4 @@
-from strageties import SolverStrategy
+from strategies import SolverStrategy
 from heuristics import HeuristicStrategy
 
 class AStarSolver(SolverStrategy):

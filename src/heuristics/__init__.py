@@ -1,3 +1,3 @@
-from .heuristic import HeuristicStrategy
+from .heuristic_strategy import HeuristicStrategy
 from .manhattan_heuristic import ManhattanHeuristic
 from .euclidean_heuristic import EuclideanHeuristic

@@ -1,9 +1,9 @@
-from strageties import SolverStrategy
+from strategies import SolverStrategy
 
-class DFSSolver(SolverStrategy):
+class BFSSolver(SolverStrategy):
     def __init__(self, puzzle):
         super().__init__(puzzle)
     
     def solve(self, puzzle):
-        # Implement DFS algorithm here
+        # Implement BFS algorithm here
         pass
