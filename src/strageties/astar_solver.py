@@ -1,4 +1,5 @@
 from strageties import SolverStrategy
+from heuristics import HeuristicStrategy
 
 class AStarSolver(SolverStrategy):
     def __init__(self, puzzle, heuristic):

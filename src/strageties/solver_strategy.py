@@ -1,4 +1,6 @@
 from abc  import ABC, abstractmethod
+from result import Result
+import time
 
 class SolverStrategy(ABC):
     @abstractmethod
@@ -26,5 +28,10 @@ class SolverStrategy(ABC):
         pass
     
     def get_result(self, goal_state):
-        # Construct the result object
+        if goal_state is None:
+            return Result(None, 0, self.nodes_expanded, self.max_depth, self.stop_timer())
+        
+        path = self.get_path(goal_state)
+        
+        return Result(path, len(path), self.nodes_expanded, self.max_depth, self.stop_timer())
         pass
