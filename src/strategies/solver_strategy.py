@@ -16,7 +16,6 @@ class SolverStrategy(ABC):
         self.explored = set()
         self.parent_map = {puzzle.state: None}
         self.start_time = None
-        self.path = []
         
     def start_timer(self):
         self.start_time = time.time()

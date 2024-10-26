@@ -1,9 +1,9 @@
-from strageties.bfs_solver import BFSSolver
+from strategies.bfs_solver import BFSSolver
 from solver_factory import SolverFactory
 from puzzle import Puzzle
 
 def test_bfs_solver():
-    puzzle = Puzzle("012345678")
+    puzzle = Puzzle("876543210")
     solver = SolverFactory.create_solver(puzzle, 'bfs')
     solver.start_timer()
     shortest_path = solver.solve()

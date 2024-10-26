@@ -1,5 +1,5 @@
 from src.puzzle import Puzzle
-from src.strageties import SolverStrategy
+from src.strategies import SolverStrategy
 
 
 class DFSSolver(SolverStrategy):
