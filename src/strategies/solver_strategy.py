@@ -1,7 +1,7 @@
 from abc  import ABC, abstractmethod
 import time
 
-from src.result import Result
+from result import Result
 
 
 class SolverStrategy(ABC):
