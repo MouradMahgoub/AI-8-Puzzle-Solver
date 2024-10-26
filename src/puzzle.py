@@ -1,3 +1,4 @@
+import random
 class Puzzle:
     goal_state = int("012345678")
 
@@ -51,3 +52,22 @@ class Puzzle:
         state_str = str(state_int)
         if len(state_str) == 8: state_str = "0" + state_str
         return state_str
+
+    
+    @staticmethod
+    def generate_solvable_state():
+        state = list("123456780")
+        while True:
+            random.shuffle(state)
+            if Puzzle.is_solvable(state):
+                return "".join(state)
+    
+    @staticmethod
+    def is_solvable(state):
+        # Implement logic to check if the state is solvable
+        inversions = 0
+        for i in range(len(state)):
+            for j in range(i + 1, len(state)):
+                if state[i] != '0' and state[j] != '0' and state[i] > state[j]:
+                    inversions += 1
+        return inversions % 2 == 0
