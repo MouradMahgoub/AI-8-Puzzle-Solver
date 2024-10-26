@@ -4,7 +4,7 @@ from result import Result
 
 class SolverStrategy(ABC):
     @abstractmethod
-    def solve(self, puzzle):
+    def solve(self):
         pass 
 
     def __init__(self, puzzle):
