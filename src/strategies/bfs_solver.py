@@ -6,7 +6,7 @@ class BFSSolver(SolverStrategy):
         super().__init__(puzzle)
 
     def solve(self):
-        self.frontier = [self.puzzle.state]  
+        self.frontier = [self.puzzle.state]
 
         self.parent_map = {self.puzzle.state: None}  
 
@@ -14,8 +14,10 @@ class BFSSolver(SolverStrategy):
             self.puzzle.state = self.frontier.pop(0)  
             self.nodes_expanded += 1            
             
-            if self.puzzle.is_goal(): 
-                return self.get_result(self.puzzle.state)
+            if self.puzzle.is_goal():
+                path = self.get_path(self.puzzle.state)
+                self.max_depth = len(path) - 1
+                return self.get_result(self.puzzle.state, path)
 
             self.explored.add(self.puzzle.state)  
 
