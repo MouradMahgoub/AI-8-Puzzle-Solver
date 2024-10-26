@@ -27,7 +27,7 @@ class SolverStrategy(ABC):
         path = []
         state = goal_state
         while state is not None:
-            path.append(state)
+            path.append(self.puzzle.int_to_state(state))
             state = self.parent_map[state]
         path.reverse()
         return path
