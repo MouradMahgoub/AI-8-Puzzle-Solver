@@ -16,7 +16,6 @@ class SolverStrategy(ABC):
         self.explored = set()
         self.parent_map = {}
         self.start_time = None
-        self.path = []
         
     def start_timer(self):
         self.start_time = time.time()
@@ -29,16 +28,15 @@ class SolverStrategy(ABC):
         path = []
         state = goal_state
         while state is not None:
-            print(f"state: {state}\n")
             path.append(self.puzzle.int_to_state(state))
             state = self.parent_map[state]
-        path.reverse()  
-        self.path = path
+        path.reverse()
         return path
     
     def get_result(self, goal_state):
         if goal_state is None:
             return Result(None, 0, self.nodes_expanded, self.max_depth, self.stop_timer())
-        
-        return Result(self.path, len(self.path), self.nodes_expanded, self.max_depth, self.stop_timer())
-        pass
+
+        path = self.get_path(goal_state)
+
+        return Result(path, len(path) - 1, self.nodes_expanded, self.max_depth, self.stop_timer())
