@@ -35,10 +35,11 @@ class SolverStrategy(ABC):
         path.reverse()
         return path
     
-    def get_result(self, goal_state):
+    def get_result(self, goal_state, path=None):
         if goal_state is None:
             return Result(None, 0, self.nodes_expanded, self.max_depth, self.stop_timer())
 
-        path = self.get_path(goal_state)
+        if path is None:
+            path = self.get_path(goal_state)
 
         return Result(path, len(path) - 1, self.nodes_expanded, self.max_depth, self.stop_timer())
