@@ -1,4 +1,4 @@
-from strageties import SolverStrategy
+from strategies import SolverStrategy
 from puzzle import Puzzle
 
 class BFSSolver(SolverStrategy):

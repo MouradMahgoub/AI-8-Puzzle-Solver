@@ -1,4 +1,4 @@
-from strageties.bfs_solver import BFSSolver
+from strategies.bfs_solver import BFSSolver
 from solver_factory import SolverFactory
 from puzzle import Puzzle
 
