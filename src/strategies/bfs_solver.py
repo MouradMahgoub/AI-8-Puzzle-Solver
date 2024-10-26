@@ -7,8 +7,9 @@ class BFSSolver(SolverStrategy):
 
     def solve(self):
         self.frontier = [self.puzzle.state]
-
         self.parent_map = {self.puzzle.state: None}  
+
+        self.start_timer()
 
         while self.frontier:
             self.puzzle.state = self.frontier.pop(0)  

@@ -78,24 +78,16 @@ class PuzzleGame(QMainWindow):
         solver_strategy = self.ui.comboBox.currentText()
         self.update_puzzle_state(initial_state)
         QApplication.processEvents()
-        time.sleep(2)
+        time.sleep(1)
         puzzle = Puzzle(initial_state)
         solver = SolverFactory.create_solver(puzzle, solver_strategy)
-        result = solver.solve(puzzle)
-        
-        # Display the movements (states) in the UI
-        # for state in result.path_to_goal:
-        #     self.update_puzzle_state(state)
-        #     QApplication.processEvents()
-        #     time.sleep(1)  # Add delay to visualize the movements
-
-        path = {"120453768", "123405768", "123450768", "123456708", "123456780", 
-                "123456708", "123450768", "123405768", "120453768"}
-        
+        result = solver.solve()
+        path = result.path_to_goal
+    
         for state in path:
             self.update_puzzle_state(state)
             QApplication.processEvents()
-            time.sleep(1)
+            time.sleep(0.5)
         
         self.ui.lineEdit.setText("")
         self.ui.pushButton_solve.setEnabled(True)
@@ -109,19 +101,3 @@ if __name__ == "__main__":
     window = PuzzleGame()
     window.show()
     sys.exit(app.exec_())
-
-# from strategies.bfs_solver import BFSSolver
-# from solver_factory import SolverFactory
-# from puzzle import Puzzle
-
-# def test_bfs_solver():
-#     puzzle = Puzzle("876543210")
-#     solver = SolverFactory.create_solver(puzzle, 'bfs')
-#     solver.start_timer()
-#     shortest_path = solver.solve()
-#     result = solver.path_results(shortest_path)
-#     print(f"Shortest Path:{result.path_to_goal}\nCost of the path:{result.cost_of_path}\nNodes Expanded:{result.nodes_expanded}\nSearch Depth:{result.search_depth}\nRunning time:{result.running_time}")
-
-# if __name__ == "__main__":
-#     test_bfs_solver()
-

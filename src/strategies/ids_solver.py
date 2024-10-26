@@ -1,4 +1,4 @@
-from src.strategies import SolverStrategy
+from strategies import SolverStrategy
 
 
 class IDSSolver(SolverStrategy):
