@@ -4,7 +4,7 @@ import time
 
 class SolverStrategy(ABC):
     @abstractmethod
-    def solve(self, puzzle):
+    def solve(self):
         pass 
 
     def __init__(self, puzzle):
@@ -12,7 +12,7 @@ class SolverStrategy(ABC):
         self.nodes_expanded = 0
         self.curr_depth = 0
         self.max_depth = 0
-        self.frontier = []
+        self.frontier = [puzzle.state]
         self.explored = set()
         self.parent_map = {}
         self.start_time = None
