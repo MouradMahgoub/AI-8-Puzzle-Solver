@@ -12,15 +12,15 @@ class DFSSolver(SolverStrategy):
 
         while self.frontier:
             current_state = self.frontier.pop()
+            self.puzzle.state = current_state
             current_depth = depth_map[current_state]
             self.explored.add(current_state)
-            puzzle = Puzzle(str(current_state))
             self.max_depth = max(self.max_depth, current_depth)
 
-            if puzzle.is_goal():
+            if self.puzzle.is_goal():
                 return self.get_result(current_state)
 
-            neighbours = puzzle.get_neighbors()
+            neighbours = self.puzzle.get_neighbors()
             self.nodes_expanded += 1
 
             for neighbour in neighbours:
