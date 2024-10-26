@@ -1,6 +1,8 @@
 from abc  import ABC, abstractmethod
 import time
-from result import Result
+
+from src.result import Result
+
 
 class SolverStrategy(ABC):
     @abstractmethod
@@ -12,9 +14,9 @@ class SolverStrategy(ABC):
         self.nodes_expanded = 0
         self.curr_depth = 0
         self.max_depth = 0
-        self.frontier = []
+        self.frontier = [puzzle.state]
         self.explored = set()
-        self.parent_map = {}
+        self.parent_map = {puzzle.state: None}
         self.start_time = None
         
     def start_timer(self):
