@@ -1,19 +1,16 @@
-from strageties import SolverStrategy, BFSSolver, DFSSolver, AStarSolver
+from strategies import SolverStrategy, BFSSolver, DFSSolver, AStarSolver
 from heuristics import HeuristicStrategy, EuclideanHeuristic, ManhattanHeuristic
 
 class SolverFactory:
     @staticmethod
-    def create_solver(puzzle, solver_strategy, heuristic_strategy=None):
-        if solver_strategy == 'bfs':
+    def create_solver(puzzle, solver_strategy):
+        if solver_strategy == 'BFS':
             return BFSSolver(puzzle)
-        elif solver_strategy == 'dfs':
+        elif solver_strategy == 'DFS':
             return DFSSolver(puzzle)
-        elif solver_strategy == 'astar':
-            if heuristic_strategy == 'manhattan':
-                return AStarSolver(puzzle, ManhattanHeuristic())
-            elif heuristic_strategy == 'euclidean':
-                return AStarSolver(puzzle, EuclideanHeuristic())
-            else:
-                raise ValueError('Invalid heuristic strategy')
+        elif solver_strategy == 'A*_Manhattan':
+            return AStarSolver(puzzle, ManhattanHeuristic())
+        elif solver_strategy == 'A*_Euclidean':
+            return AStarSolver(puzzle, EuclideanHeuristic())
         else:
-            raise ValueError('Invalid solver strategy')
+            return DFSSolver(puzzle)
