@@ -1,4 +1,4 @@
-from strategies import SolverStrategy, BFSSolver, DFSSolver, AStarSolver
+from strategies import SolverStrategy, BFSSolver, DFSSolver, AStarSolver, IDSSolver
 from heuristics import HeuristicStrategy, EuclideanHeuristic, ManhattanHeuristic
 
 class SolverFactory:
@@ -8,6 +8,8 @@ class SolverFactory:
             return BFSSolver(puzzle)
         elif solver_strategy == 'dfs':
             return DFSSolver(puzzle)
+        elif solver_strategy == 'ids':
+            return IDSSolver(puzzle)
         elif solver_strategy == 'astar':
             if heuristic_strategy == 'manhattan':
                 return AStarSolver(puzzle, ManhattanHeuristic())
