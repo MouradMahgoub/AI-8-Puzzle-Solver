@@ -1,4 +1,4 @@
-from strategies import SolverStrategy, BFSSolver, DFSSolver, AStarSolver
+from strategies import SolverStrategy, BFSSolver, DFSSolver, AStarSolver, IDSSolver
 from heuristics import HeuristicStrategy, EuclideanHeuristic, ManhattanHeuristic
 
 class SolverFactory:
