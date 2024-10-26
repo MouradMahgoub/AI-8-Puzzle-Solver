@@ -24,13 +24,14 @@ class SolverStrategy(ABC):
     def stop_timer(self):
         return time.time() - self.start_time
     
-    def get_path(self, parents, goal_state):
+    def get_path(self, goal_state):
         # Get the path from the start state to the goal state
         path = []
         state = goal_state
         while state is not None:
-            path.append(state)
-            state = parents[state]
+            print(f"state: {state}\n")
+            path.append(self.puzzle.int_to_state(state))
+            state = self.parent_map[state]
         path.reverse()  
         self.path = path
         return path
