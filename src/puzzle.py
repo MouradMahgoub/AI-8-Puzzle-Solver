@@ -2,7 +2,7 @@ import random
 class Puzzle:
     goal_state = int("012345678")
 
-    directions = [-1, 1, 3, -3]
+    directions = [-3, 3, -1, 1]
 
     # to do: precompute the neibours of each cell
     
