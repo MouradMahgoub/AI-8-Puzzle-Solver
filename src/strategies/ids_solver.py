@@ -36,7 +36,9 @@ class IDSSolver(SolverStrategy):
                 self.nodes_expanded += 1
 
                 for neighbour in neighbours:
-                    if neighbour not in self.explored and neighbour not in self.frontier:
+                    visited_but_in_higher_depth = neighbour in self.explored and depth_map[neighbour] > current_depth
+
+                    if neighbour not in self.explored and neighbour not in self.frontier or visited_but_in_higher_depth:
                         self.frontier.append(neighbour)
                         self.parent_map[neighbour] = current_state
                         depth_map[neighbour] = current_depth + 1
