@@ -12,9 +12,7 @@ class DFSSolver(SolverStrategy):
         while self.frontier:
             current_state = self.frontier.pop()
             self.puzzle.state = current_state
-            current_depth = depth_map[current_state]
             self.explored.add(current_state)
-            self.max_depth = max(self.max_depth, current_depth)
 
             if self.puzzle.is_goal():
                 return self.get_result(current_state)
@@ -23,9 +21,11 @@ class DFSSolver(SolverStrategy):
             self.nodes_expanded += 1
 
             for neighbour in neighbours:
-                if neighbour not in self.explored and neighbour not in self.frontier:
+                if neighbour not in self.explored:
                     self.frontier.append(neighbour)
+                    self.explored.add(current_state)
                     self.parent_map[neighbour] = current_state
-                    depth_map[neighbour] = current_depth + 1
+                    depth_map[neighbour] = depth_map[current_state] + 1
+                    self.max_depth = max(self.max_depth, depth_map[neighbour])
 
         return self.get_result(None)

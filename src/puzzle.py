@@ -1,7 +1,8 @@
 import random
 class Puzzle:
     goal_state = int("012345678")
-    directions = [-1, 1, 3, -3]
+
+    directions = [-3, 3, -1, 1]
 
     def __init__(self, state_str):
         self.state = self.state_to_int(state_str)

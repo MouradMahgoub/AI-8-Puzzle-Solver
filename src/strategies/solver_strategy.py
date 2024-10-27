@@ -9,7 +9,7 @@ class SolverStrategy(ABC):
     def solve(self):
         pass 
 
-    def __init__(self, puzzle):
+    def __init__(self, puzzle, heuristic=None):
         self.puzzle = puzzle
         self.nodes_expanded = 0
         self.curr_depth = 0
@@ -18,6 +18,7 @@ class SolverStrategy(ABC):
         self.explored = set()
         self.parent_map = {puzzle.state: None}
         self.start_time = None
+        self.heuristic = heuristic
         
     def start_timer(self):
         self.start_time = time.time()
