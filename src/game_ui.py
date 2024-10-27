@@ -157,7 +157,7 @@ class Ui_MainWindow(object):
                 self.comboBox.setItemText(2, _translate("MainWindow", "IDS"))
                 self.comboBox.setItemText(3, _translate("MainWindow", "A*_Manhattan"))
                 self.comboBox.setItemText(4, _translate("MainWindow", "A*_Euclidean"))
-                self.label_strategy.setText(_translate("MainWindow", "Stragety"))
+                self.label_strategy.setText(_translate("MainWindow", "Strategy"))
                 self.label_custom_state.setText(_translate("MainWindow", "Custom state"))
                 self.pushButton_solve.setText(_translate("MainWindow", "Solve"))
                 self.buttons[0].setText(_translate("MainWindow", ""))

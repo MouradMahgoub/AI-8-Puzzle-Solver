@@ -8,16 +8,12 @@ class BFSSolver(SolverStrategy):
 
     def solve(self):
         self.frontier = deque([self.puzzle.state])
-        # self.parent_map = {self.puzzle.state: None}  
 
         self.start_timer()
-        
         while self.frontier:
             current_state =  self.frontier.popleft() 
             self.puzzle.state = current_state
             self.nodes_expanded += 1            
-            self.max_depth += 1
-            
             if self.puzzle.is_goal():
                 return self.get_result(current_state)
 
@@ -29,5 +25,4 @@ class BFSSolver(SolverStrategy):
                 if child_state not in self.explored and child_state not in self.parent_map: 
                     self.frontier.append(child_state)  
                     self.parent_map[child_state] = current_state
-
         return self.get_result(None)
