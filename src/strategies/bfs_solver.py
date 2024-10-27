@@ -15,10 +15,11 @@ class BFSSolver(SolverStrategy):
             current_state =  self.frontier.popleft() 
             self.puzzle.state = current_state
             self.nodes_expanded += 1            
-            self.max_depth += 1
             
             if self.puzzle.is_goal():
-                return self.get_result(current_state)
+                path = self.get_path(current_state)
+                self.max_depth = len(path) - 1
+                return self.get_result(current_state, path)
 
             # self.explored.add(current_state)  
 
