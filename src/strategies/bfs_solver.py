@@ -1,38 +1,33 @@
+from collections import deque
 from strategies import SolverStrategy
-from puzzle import Puzzle
-import queue
+import time
 
 class BFSSolver(SolverStrategy):
     def __init__(self, puzzle):
         super().__init__(puzzle)
 
     def solve(self):
-        self.frontier = queue.Queue()
-        in_frontier = set()
-        in_frontier.add(self.puzzle.state)
-        self.frontier.put(self.puzzle.state)
-        self.parent_map = {self.puzzle.state: None}  
+        self.frontier = deque([self.puzzle.state])
+        # self.parent_map = {self.puzzle.state: None}  
 
         self.start_timer()
-
-        while not self.frontier.empty():
-            self.puzzle.state = self.frontier.get()  
+        
+        while self.frontier:
+            current_state =  self.frontier.popleft() 
+            self.puzzle.state = current_state
             self.nodes_expanded += 1            
-            in_frontier.remove(self.puzzle.state)
-
+            self.max_depth += 1
+            
             if self.puzzle.is_goal():
-                path = self.get_path(self.puzzle.state)
-                self.max_depth = len(path) - 1
-                return self.get_result(self.puzzle.state, path)
+                return self.get_result(current_state)
 
-            self.explored.add(self.puzzle.state)  
+            self.explored.add(current_state)  
 
             child_states = self.puzzle.get_neighbors()
 
             for child_state in child_states:
-                if child_state not in self.explored and child_state not in in_frontier: 
-                    self.frontier.put(child_state)  
-                    in_frontier.add(child_state)
-                    self.parent_map[child_state] = self.puzzle.state
+                if child_state not in self.explored and child_state not in self.parent_map: 
+                    self.frontier.append(child_state)  
+                    self.parent_map[child_state] = current_state
 
         return self.get_result(None)
