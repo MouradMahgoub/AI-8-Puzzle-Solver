@@ -2,7 +2,7 @@ import random
 class Puzzle:
     goal_state = int("012345678")
 
-    directions = [-1, 1, 3, -3]
+    #directions = [-1, 1, -3, 3]
 
     # to do: precompute the neibours of each cell
     
@@ -22,24 +22,41 @@ class Puzzle:
         return ''.join(s_list) 
  
 
-    def valid_move(self, position, new_position):
+    """def valid_move(self, position, new_position):
         if new_position < 0 or new_position > 8:
             return False
         if abs(new_position - position) == 1 and int(position / 3) != int(new_position / 3):
             return False
-        return True 
+        return True """
 
     def get_neighbors(self):
         # Implement logic to get neighboring states
-        current_state = self.state
+        """current_state = self.state
         current_state = self.int_to_state(current_state)
         zero_position = current_state.index('0')
         child_states = []
         for direction in self.directions:
             new_position = zero_position + direction
             if self.valid_move(zero_position, new_position):
-                child_state = self.swap_chars(current_state, zero_position, new_position)  
-                child_states.append(int(child_state)) 
+                child_states.append(self.state_to_int(self.swap_chars(current_state, zero_position, new_position))) 
+        return child_states"""
+
+        current_state = self.state
+        current_state = self.int_to_state(current_state)
+        zero_position = current_state.index('0')
+        child_states = []
+        #left position is valid if zero_position % 3 != 0 left position are: 0, 3, 6
+        if zero_position % 3 != 0:
+            child_states.append(self.state_to_int(self.swap_chars(current_state, zero_position, zero_position - 1)))
+        #right position is valid if zero_position % 3 != 2 right position are: 2, 5, 8
+        if zero_position % 3 != 2:
+            child_states.append(self.state_to_int(self.swap_chars(current_state, zero_position, zero_position + 1)))
+        #down position is valid if zero_position // 3 != 2 down position are not valid: 6, 7, 8
+        if zero_position // 3 != 0:
+            child_states.append(self.state_to_int(self.swap_chars(current_state, zero_position, zero_position - 3)))
+        #up position is valid if zero_position // 3 != 0 up position are not valid: 0, 1, 2
+        if zero_position // 3 != 2:
+            child_states.append(self.state_to_int(self.swap_chars(current_state, zero_position, zero_position + 3)))
         return child_states
 
     def state_to_int(self, state_str):
