@@ -84,7 +84,8 @@ class PuzzleGame(QMainWindow):
         
         path = result.path_to_goal
         
-        print(f"Path: {result.path_to_goal}\nCost of path: {result.cost_of_path}" 
+            #   Path: {result.path_to_goal}\n
+        print(f"Cost of path: {result.cost_of_path}" 
               f"\nNodes expanded: {result.nodes_expanded}\nMax search depth: {result.search_depth}"
               f"\nTime taken: {result.running_time} seconds")
 
