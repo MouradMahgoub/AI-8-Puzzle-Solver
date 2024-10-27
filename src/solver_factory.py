@@ -1,5 +1,6 @@
-from strategies import SolverStrategy, BFSSolver, DFSSolver, AStarSolver, IDSSolver
-from heuristics import HeuristicStrategy, EuclideanHeuristic, ManhattanHeuristic
+from heuristics import EuclideanHeuristic, ManhattanHeuristic
+from strategies import BFSSolver, DFSSolver, AStarSolver, IDSSolver
+
 
 class SolverFactory:
     @staticmethod
