@@ -15,7 +15,7 @@ class SolverStrategy(ABC):
         self.curr_depth = 0
         self.max_depth = 0
         self.frontier = [puzzle.state]
-        self.explored = set()
+        # self.explored = set()
         self.parent_map = {puzzle.state: None}
         self.start_time = None
         self.heuristic = heuristic

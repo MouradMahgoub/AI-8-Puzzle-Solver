@@ -1,3 +1,4 @@
+from collections import deque
 from strategies import SolverStrategy
 
 
@@ -6,13 +7,14 @@ class DFSSolver(SolverStrategy):
         super().__init__(puzzle)
 
     def solve(self):
+        self.frontier = deque(self.frontier)
         depth_map = {self.puzzle.state: 0}
         self.start_timer()
 
         while self.frontier:
             current_state = self.frontier.pop()
             self.puzzle.state = current_state
-            self.explored.add(current_state)
+            # self.explored.add(current_state)
 
             if self.puzzle.is_goal():
                 return self.get_result(current_state)
@@ -21,9 +23,9 @@ class DFSSolver(SolverStrategy):
             self.nodes_expanded += 1
 
             for neighbour in neighbours:
-                if neighbour not in self.explored:
+                if neighbour not in depth_map: # depth map -> explored U frontier
                     self.frontier.append(neighbour)
-                    self.explored.add(current_state)
+                    # self.explored.add(current_state)
                     self.parent_map[neighbour] = current_state
                     depth_map[neighbour] = depth_map[current_state] + 1
                     self.max_depth = max(self.max_depth, depth_map[neighbour])
