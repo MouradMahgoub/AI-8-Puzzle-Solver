@@ -27,7 +27,6 @@ class SolverStrategy(ABC):
         return time.time() - self.start_time
     
     def get_path(self, goal_state):
-        # Get the path from the start state to the goal state
         path = []
         state = goal_state
         while state is not None:
@@ -37,10 +36,12 @@ class SolverStrategy(ABC):
         return path
     
     def get_result(self, goal_state, path=None):
+        running_time = self.stop_timer()
+        
         if goal_state is None:
-            return Result(None, 0, self.nodes_expanded, self.max_depth, self.stop_timer())
+            return Result(None, 0, self.nodes_expanded, self.max_depth, running_time)
 
         if path is None:
             path = self.get_path(goal_state)
 
-        return Result(path, len(path) - 1, self.nodes_expanded, self.max_depth, self.stop_timer())
+        return Result(path, len(path) - 1, self.nodes_expanded, self.max_depth, running_time)

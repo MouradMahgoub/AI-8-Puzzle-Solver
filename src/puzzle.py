@@ -4,13 +4,10 @@ class Puzzle:
 
     directions = [-3, 3, -1, 1]
 
-    # to do: precompute the neibours of each cell
-    
     def __init__(self, state_str):
         self.state = self.state_to_int(state_str)
     
     def is_goal(self):
-        # Implement goal check logic
         if self.state == self.goal_state:
             return True
         
@@ -30,7 +27,6 @@ class Puzzle:
         return True 
 
     def get_neighbors(self):
-        # Implement logic to get neighboring states
         current_state = self.state
         current_state = self.int_to_state(current_state)
         zero_position = current_state.index('0')
@@ -43,12 +39,10 @@ class Puzzle:
         return child_states
 
     def state_to_int(self, state_str):
-        # Convert state to integer
         state_int = int(state_str)
         return state_int
     
     def int_to_state(self, state_int):
-        # Convert integer to state
         state_str = str(state_int)
         if len(state_str) == 8: state_str = "0" + state_str
         return state_str
@@ -64,7 +58,6 @@ class Puzzle:
     
     @staticmethod
     def is_solvable(state):
-        # Implement logic to check if the state is solvable
         inversions = 0
         for i in range(len(state)):
             for j in range(i + 1, len(state)):

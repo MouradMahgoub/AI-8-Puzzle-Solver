@@ -1,32 +1,33 @@
+from collections import deque
 from strategies import SolverStrategy
-from puzzle import Puzzle
+import time
 
 class BFSSolver(SolverStrategy):
     def __init__(self, puzzle):
         super().__init__(puzzle)
 
     def solve(self):
-        self.frontier = [self.puzzle.state]
-        self.parent_map = {self.puzzle.state: None}  
+        self.frontier = deque([self.puzzle.state])
+        # self.parent_map = {self.puzzle.state: None}  
 
         self.start_timer()
-
+        
         while self.frontier:
-            self.puzzle.state = self.frontier.pop(0)  
+            current_state =  self.frontier.popleft() 
+            self.puzzle.state = current_state
             self.nodes_expanded += 1            
+            self.max_depth += 1
             
             if self.puzzle.is_goal():
-                path = self.get_path(self.puzzle.state)
-                self.max_depth = len(path) - 1
-                return self.get_result(self.puzzle.state, path)
+                return self.get_result(current_state)
 
-            self.explored.add(self.puzzle.state)  
+            self.explored.add(current_state)  
 
             child_states = self.puzzle.get_neighbors()
 
             for child_state in child_states:
-                if child_state not in self.explored: 
+                if child_state not in self.explored and child_state not in self.parent_map: 
                     self.frontier.append(child_state)  
-                    self.parent_map[child_state] = self.puzzle.state
+                    self.parent_map[child_state] = current_state
 
         return self.get_result(None)

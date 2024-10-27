@@ -1,4 +1,3 @@
-from puzzle import Puzzle
 from strategies import SolverStrategy
 
 
@@ -7,8 +6,8 @@ class DFSSolver(SolverStrategy):
         super().__init__(puzzle)
 
     def solve(self):
-        self.start_timer()
         depth_map = {self.puzzle.state: 0}
+        self.start_timer()
 
         while self.frontier:
             current_state = self.frontier.pop()

@@ -78,11 +78,12 @@ class PuzzleGame(QMainWindow):
         solver_strategy = self.ui.comboBox.currentText()
         self.update_puzzle_state(initial_state)
         QApplication.processEvents()
-        time.sleep(1)
         puzzle = Puzzle(initial_state)
         solver = SolverFactory.create_solver(puzzle, solver_strategy)
         result = solver.solve()
+        
         path = result.path_to_goal
+        
         print(f"Path: {result.path_to_goal}\nCost of path: {result.cost_of_path}" 
               f"\nNodes expanded: {result.nodes_expanded}\nMax search depth: {result.search_depth}"
               f"\nTime taken: {result.running_time} seconds")
@@ -91,7 +92,7 @@ class PuzzleGame(QMainWindow):
             self.update_puzzle_state(state)
             QApplication.processEvents()
             time.sleep(0.5)
-        
+            
         self.ui.lineEdit.setText("")
         self.ui.pushButton_solve.setEnabled(True)
         self.ui.pushButton_shuffle.setEnabled(True)
