@@ -83,7 +83,10 @@ class PuzzleGame(QMainWindow):
         solver = SolverFactory.create_solver(puzzle, solver_strategy)
         result = solver.solve()
         path = result.path_to_goal
-    
+        print(f"Path: {result.path_to_goal}\nCost of path: {result.cost_of_path}" 
+              f"\nNodes expanded: {result.nodes_expanded}\nMax search depth: {result.search_depth}"
+              f"\nTime taken: {result.running_time} seconds")
+
         for state in path:
             self.update_puzzle_state(state)
             QApplication.processEvents()
