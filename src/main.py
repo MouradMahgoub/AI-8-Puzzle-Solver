@@ -78,12 +78,10 @@ class PuzzleGame(QMainWindow):
         solver_strategy = self.ui.comboBox.currentText()
         self.update_puzzle_state(initial_state)
         QApplication.processEvents()
-        time.sleep(1)
         puzzle = Puzzle(initial_state)
         solver = SolverFactory.create_solver(puzzle, solver_strategy)
         result = solver.solve()
         path = result.path_to_goal
-    
         for state in path:
             self.update_puzzle_state(state)
             QApplication.processEvents()

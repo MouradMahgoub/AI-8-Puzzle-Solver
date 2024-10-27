@@ -1,5 +1,4 @@
 from strategies import SolverStrategy
-from puzzle import Puzzle
 
 class BFSSolver(SolverStrategy):
     def __init__(self, puzzle):
