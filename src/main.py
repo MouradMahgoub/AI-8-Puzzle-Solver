@@ -115,15 +115,15 @@ class PuzzleGame(QMainWindow):
 
     def validate_input(self):
         self.ui.lineEdit.setReadOnly(True)
-        if set(self.ui.lineEdit.text()) != set("012345678"):
+        if len(self.ui.lineEdit.text()) > 9 or set(self.ui.lineEdit.text()) != set("012345678"):
             self.ui.lineEdit.setText("Invalid input")
-            QTimer.singleShot(2000, self.reset_line_edit)
+            QTimer.singleShot(1000, self.reset_line_edit)
             for button in self.ui.buttons:
                 button.setEnabled(True)
             return False
         elif not Puzzle.is_solvable(self.ui.lineEdit.text()):
             self.ui.lineEdit.setText("unsolvable!!")
-            QTimer.singleShot(2000, self.reset_line_edit)
+            QTimer.singleShot(1000, self.reset_line_edit)
             for button in self.ui.buttons:
                 button.setEnabled(True)
             return False
