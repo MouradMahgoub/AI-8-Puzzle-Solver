@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import QTimer
 from game_ui import Ui_MainWindow 
 from puzzle import Puzzle
@@ -13,32 +13,72 @@ class ResultDialog(QtWidgets.QDialog):
     def __init__(self, result, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Solution Result")
-        self.setMinimumSize(300, 200)
+        self.setMinimumSize(600, 450)
         
         # Main layout
         layout = QtWidgets.QVBoxLayout()
         
         # Display result details using existing attributes
-        path_label = QtWidgets.QLabel(f"Path to Goal: {result.path_to_goal}")
-        cost_label = QtWidgets.QLabel(f"Path Cost: {result.cost_of_path}")
-        expanded_label = QtWidgets.QLabel(f"Nodes Expanded: {result.nodes_expanded}")
-        depth_label = QtWidgets.QLabel(f"Search Depth: {result.search_depth}")
-        runtime_label = QtWidgets.QLabel(f"Running Time: {result.running_time:.4f} seconds")
+        result_layout = QtWidgets.QFormLayout()
+        
+        path_label = QtWidgets.QLabel("Path to Goal:")
+        path_list = QtWidgets.QListWidget()
+        for step in result.path_to_goal:
+            path_list.addItem(step)
+        path_list.setFixedHeight(200)
+        
+        cost_label = QtWidgets.QLabel("Path Cost:")
+        cost_value = QtWidgets.QLabel(str(result.cost_of_path))
+        
+        expanded_label = QtWidgets.QLabel("Nodes Expanded:")
+        expanded_value = QtWidgets.QLabel(str(result.nodes_expanded))
+        
+        depth_label = QtWidgets.QLabel("Search Depth:")
+        depth_value = QtWidgets.QLabel(str(result.search_depth))
+        
+        runtime_label = QtWidgets.QLabel("Running Time:")
+        runtime_value = QtWidgets.QLabel(f"{result.running_time:.4f} seconds")
         
         # Setting font for readability
-        font = QtGui.QFont()
-        font.setPointSize(10)
+        font_title = QtGui.QFont()
+        font_title.setPointSize(13)
+        font_title.setBold(True)
+
+        font_value = QtGui.QFont()
+        font_value.setPointSize(13)
+        font_value.setBold(True)
+
+        # Title labels
         for label in [path_label, cost_label, expanded_label, depth_label, runtime_label]:
-            label.setFont(font)
-            layout.addWidget(label)
-        
+            label.setFont(font_title)
+            label.setStyleSheet("color: #8B008B")  # Dark mauve for titles
+
+        # Value labels
+        for label in [cost_value, expanded_value, depth_value, runtime_value]:
+            label.setFont(font_value)
+            label.setStyleSheet("color: darkgreen")  # Dark green for values
+
+        # Adding widgets to the form layout
+        result_layout.addRow(path_label, path_list)
+        result_layout.addRow(cost_label, cost_value)
+        result_layout.addRow(expanded_label, expanded_value)
+        result_layout.addRow(depth_label, depth_value)
+        result_layout.addRow(runtime_label, runtime_value)
+
+        # Adding form layout to the main layout
+        layout.addLayout(result_layout)
+
         # Set layout to dialog
         self.setLayout(layout)
 
+        # Customize the font for the items in the QListWidget
+        font_state = QtGui.QFont()
+        font_state.setPointSize(12)
+        font_state.setBold(True)
 
-
-
-
+        for i in range(path_list.count()):
+            item = path_list.item(i)
+            item.setFont(font_state)
 
 
 class PuzzleGame(QMainWindow):
@@ -50,7 +90,8 @@ class PuzzleGame(QMainWindow):
         self.result = None
         self.current_step = 0
         self.path = []
-
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.show_next_state)
 
     def setup_connections(self):
         self.ui.pushButton_solve.clicked.connect(self.solve_game)
@@ -58,6 +99,8 @@ class PuzzleGame(QMainWindow):
         self.ui.pushButton_show_result.clicked.connect(self.show_result_dialog)
         self.ui.pushButton_prev.clicked.connect(self.show_prev_state)
         self.ui.pushButton_next.clicked.connect(self.show_next_state)
+        self.ui.pushButton_speed.pressed.connect(self.start_speed)
+        self.ui.pushButton_speed.released.connect(self.stop_speed)
         for button in self.ui.buttons:
             button.clicked.connect(lambda _, b=button: self.button_clicked(b))
 
@@ -65,16 +108,6 @@ class PuzzleGame(QMainWindow):
         if self.result:
             dialog = ResultDialog(self.result, self)
             dialog.exec_()
-            
-    def show_prev_state(self):
-        if self.path and self.current_step > 0:
-            self.current_step -= 1
-            self.update_puzzle_state(self.path[self.current_step])
-
-    def show_next_state(self):
-        if self.path and self.current_step < len(self.path) - 1:
-            self.current_step += 1
-            self.update_puzzle_state(self.path[self.current_step])
 
     def button_clicked(self, button):
         self.ui.lineEdit.setText(self.ui.lineEdit.text() + (button.text() if button.text() else "0"))
@@ -154,35 +187,23 @@ class PuzzleGame(QMainWindow):
         self.ui.pushButton_shuffle.setEnabled(True)
         for button in self.ui.buttons:
             button.setEnabled(True)
-        # if(not self.validate_input()):
-        #     return
-        # self.ui.pushButton_solve.setEnabled(False)
-        # self.ui.pushButton_shuffle.setEnabled(False)
-        # initial_state = self.ui.lineEdit.text()
-        # solver_strategy = self.ui.comboBox.currentText()
-        # self.update_puzzle_state(initial_state)
-        # QApplication.processEvents()
-        # puzzle = Puzzle(initial_state)
-        # solver = SolverFactory.create_solver(puzzle, solver_strategy)
-        # self.result = solver.solve()
-        
-        # path = self.result.path_to_goal
-        
-        #     #   Path: {self.result.path_to_goal}\n
-        # print(f"Cost of path: {self.result.cost_of_path}" 
-        #       f"\nNodes expanded: {self.result.nodes_expanded}\nMax search depth: {self.result.search_depth}"
-        #       f"\nTime taken: {self.result.running_time} seconds")
 
-        # for state in path:
-        #     self.update_puzzle_state(state)
-        #     QApplication.processEvents()
-        #     time.sleep(0.5)
-            
-        # self.ui.lineEdit.setText("")
-        # self.ui.pushButton_solve.setEnabled(True)
-        # self.ui.pushButton_shuffle.setEnabled(True)
-        # for button in self.ui.buttons:
-        #     button.setEnabled(True)
+    def show_prev_state(self):
+        if self.path and self.current_step > 0:
+            self.current_step -= 1
+            self.update_puzzle_state(self.path[self.current_step])
+
+    def show_next_state(self):
+        if self.path and self.current_step < len(self.path) - 1:
+            self.current_step += 1
+            self.update_puzzle_state(self.path[self.current_step])
+
+    def start_speed(self):
+        self.timer.start(100)  # Adjust the interval as needed (100ms = 0.1s)
+
+    def stop_speed(self):
+        self.timer.stop()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

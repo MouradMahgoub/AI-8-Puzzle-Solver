@@ -49,6 +49,10 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(540, 100, 251, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)  # Increase font size
+        font.setBold(True)     # Make font bold
+        self.lineEdit.setFont(font)
         self.lineEdit.setObjectName("lineEdit")
         self.label_strategy = QtWidgets.QLabel(self.centralwidget)
         self.label_strategy.setGeometry(QtCore.QRect(540, 10, 101, 31))
@@ -107,8 +111,6 @@ class Ui_MainWindow(object):
                                           "}")
         self.pushButton_show_result.setObjectName("pushButton_show_result")
         
-        
-        
         # Add Prev button
         self.pushButton_prev = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_prev.setGeometry(QtCore.QRect(540, 380, 120, 50))
@@ -151,8 +153,26 @@ class Ui_MainWindow(object):
                                            "}")
         self.pushButton_next.setObjectName("pushButton_next")
 
-        
-        
+        # Add Speed button
+        self.pushButton_speed = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_speed.setGeometry(QtCore.QRect(540, 450, 251, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_speed.setFont(font)
+        self.pushButton_speed.setStyleSheet("QPushButton {\n"
+                                            "    background-color: red;  /* Orange background */\n"
+                                            "    color: white;               /* White text */\n"
+                                            "    border-radius: 10px;        /* Rounded corners */\n"
+                                            "}\n"
+                                            "QPushButton:hover {\n"
+                                            "    background-color: darkred; /* When hovered */\n"
+                                            "}\n"
+                                            "QPushButton:pressed {\n"
+                                            "    background-color: #f57c00; /* When pressed */\n"
+                                            "}")
+        self.pushButton_speed.setObjectName("pushButton_speed")
 
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(0, 10, 531, 531))
@@ -228,8 +248,9 @@ class Ui_MainWindow(object):
         self.label_strategy.setText(_translate("MainWindow", "Strategy"))
         self.label_custom_state.setText(_translate("MainWindow", "Custom state"))
         self.pushButton_solve.setText(_translate("MainWindow", "Solve"))
-        self.pushButton_prev.setText(_translate("MainWindow", "prev"))  # Set text for the Show Result
-        self.pushButton_next.setText(_translate("MainWindow", "next"))  # Set text for the Show Result
+        self.pushButton_prev.setText(_translate("MainWindow", "Prev"))  # Set text for the Show Result
+        self.pushButton_next.setText(_translate("MainWindow", "Next"))  # Set text for the Show Result
+        self.pushButton_speed.setText(_translate("MainWindow", "Speed"))  # Set text for the Show Result
         self.pushButton_show_result.setText(_translate("MainWindow", "Show Result"))  # Set text for the Show Result
         self.buttons[0].setText(_translate("MainWindow", ""))
         self.buttons[5].setText(_translate("MainWindow", "5"))
