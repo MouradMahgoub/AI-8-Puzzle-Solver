@@ -78,15 +78,15 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.pushButton_solve.setFont(font)
         self.pushButton_solve.setStyleSheet("QPushButton {\n"
-                                            "    background-color: lightgreen;  /* Green background */\n"
+                                            "    background-color: #00acc1;  /* Green background */\n"
                                             "    color: white;               /* White text */\n"
                                             "    border-radius: 10px;        /* Rounded corners */\n"
                                             "}\n"
                                             "QPushButton:hover {\n"
-                                            "    background-color: #45a049; /* When hovered */\n"
+                                            "    background-color: #006064; /* When hovered */\n"
                                             "}\n"
                                             "QPushButton:pressed {\n"
-                                            "    background-color: #3e8e41; /* When pressed */\n"
+                                            "    background-color: #006064; /* When pressed */\n"
                                             "}")
         self.pushButton_solve.setObjectName("pushButton_solve")
         
@@ -120,15 +120,15 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.pushButton_prev.setFont(font)
         self.pushButton_prev.setStyleSheet("QPushButton {\n"
-                                           "    background-color: #ff5722;  /* Orange background */\n"
+                                           "    background-color: #fdc100;  /* Orange background */\n"
                                            "    color: white;               /* White text */\n"
                                            "    border-radius: 10px;        /* Rounded corners */\n"
                                            "}\n"
                                            "QPushButton:hover {\n"
-                                           "    background-color: #e64a19; /* When hovered */\n"
+                                           "    background-color: #f57f17; /* When hovered */\n"
                                            "}\n"
                                            "QPushButton:pressed {\n"
-                                           "    background-color: #d84315; /* When pressed */\n"
+                                           "    background-color: #f57f17; /* When pressed */\n"
                                            "}")
         self.pushButton_prev.setObjectName("pushButton_prev")
 
@@ -146,10 +146,10 @@ class Ui_MainWindow(object):
                                            "    border-radius: 10px;        /* Rounded corners */\n"
                                            "}\n"
                                            "QPushButton:hover {\n"
-                                           "    background-color: #388e3c; /* When hovered */\n"
+                                           "    background-color: #1b5e20; /* When hovered */\n"
                                            "}\n"
                                            "QPushButton:pressed {\n"
-                                           "    background-color: #2e7d32; /* When pressed */\n"
+                                           "    background-color: #1b5e20; /* When pressed */\n"
                                            "}")
         self.pushButton_next.setObjectName("pushButton_next")
 
@@ -162,15 +162,15 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.pushButton_speed.setFont(font)
         self.pushButton_speed.setStyleSheet("QPushButton {\n"
-                                            "    background-color: red;  /* Orange background */\n"
+                                            "    background-color: #e53935;  /* Tomato background */\n"
                                             "    color: white;               /* White text */\n"
                                             "    border-radius: 10px;        /* Rounded corners */\n"
                                             "}\n"
                                             "QPushButton:hover {\n"
-                                            "    background-color: darkred; /* When hovered */\n"
+                                            "    background-color: #b71c1c; /* OrangeRed when hovered */\n"
                                             "}\n"
                                             "QPushButton:pressed {\n"
-                                            "    background-color: #f57c00; /* When pressed */\n"
+                                            "    It's a background-color: #b71c1c; /* FireBrick when pressed */\n"
                                             "}")
         self.pushButton_speed.setObjectName("pushButton_speed")
 
